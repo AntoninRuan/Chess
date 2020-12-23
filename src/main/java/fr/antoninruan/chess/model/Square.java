@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Square {
 
     private int column, row;
-    private ObjectProperty<Piece> piece = new SimpleObjectProperty<>();
+    private final ObjectProperty<Piece> piece = new SimpleObjectProperty<>();
     private boolean isWhite;
 
     public Square(int column, int row) {

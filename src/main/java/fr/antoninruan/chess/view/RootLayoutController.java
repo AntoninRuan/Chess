@@ -12,12 +12,12 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Pair;
 
 
 public class RootLayoutController {
-
-    private MainApp mainApp;
 
     @FXML
     private GridPane grid;
@@ -40,8 +40,11 @@ public class RootLayoutController {
                         square.setPiece(new Bishop(square, true));
                     else if (c == 3)
                         square.setPiece(new Queen(square, true));
-                    else
-                        square.setPiece(new King(square, true));
+                    else{
+                        King king = new King(square, true);
+                        MainApp.setWhiteKing(king);
+                        square.setPiece(king);
+                    }
 
                 } else if (r == 1) {
                     square.setPiece(new Pawn(square, true));
@@ -56,8 +59,11 @@ public class RootLayoutController {
                         square.setPiece(new Bishop(square, false));
                     else if (c == 3)
                         square.setPiece(new Queen(square, false));
-                    else
-                        square.setPiece(new King(square, false));
+                    else {
+                        King king = new King(square, false);
+                        MainApp.setBlackKing(king);
+                        square.setPiece(king);
+                    }
                 }
 
                 MainApp.getSquares().put(new Pair<>(c, r), square);
@@ -124,27 +130,39 @@ public class RootLayoutController {
                     Dragboard db = event.getDragboard();
                     if (db.hasString()) {
                         String[] s = db.getString().split(",");
-                        int cd = Integer.valueOf(s[0]);
-                        int rd = Integer.valueOf(s[1]);
+                        int cd = Integer.parseInt(s[0]);
+                        int rd = Integer.parseInt(s[1]);
 
                         Square from = MainApp.getSquare(cd, rd);
                         boolean moved = from.getPiece().moveTo(square);
 
-                        if (moved)
+                        if (moved) {
+                            Media moveSound = new Media(getClass().getClassLoader().getResource("sound/move.mp3").toString());
+                            MediaPlayer player = new MediaPlayer(moveSound);
+                            player.play();
+
                             MainApp.setWhiteTurn(!MainApp.isWhiteTurn());
+                            if (MainApp.isWhiteTurn() && MainApp.getWhiteKing().isChecked()) {
+                                Media media = new Media(getClass().getClassLoader().getResource("sound/eshecs.mp3").toString());
+                                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                                mediaPlayer.play();
+                            }
+                            else if (!MainApp.isWhiteTurn() && MainApp.getBlackKing().isChecked()) {
+                                Media media = new Media(getClass().getClassLoader().getResource("sound/eshecs.mp3").toString());
+                                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                                mediaPlayer.play();
+                            }
+                        }
 
                     }
 
                 });
 
-                grid.add(view, c, r);
+                grid.add(view, c, 7 - r);
 
             }
 
         }
     }
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
 }

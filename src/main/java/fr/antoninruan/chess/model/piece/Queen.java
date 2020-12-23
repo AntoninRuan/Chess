@@ -4,6 +4,8 @@ import fr.antoninruan.chess.MainApp;
 import fr.antoninruan.chess.model.Square;
 import javafx.scene.image.Image;
 
+import java.util.List;
+
 public class Queen extends Piece{
 
     public Queen(Square square, boolean white) {
@@ -16,8 +18,13 @@ public class Queen extends Piece{
         if (from.equals(dest))
             return false;
 
-        return Bishop.isValidDestination(from, dest, isWhite()) || Rook.isValidDestination(from, dest, this.isWhite());
-
+        return getValidMoves().contains(dest);
     }
 
+    @Override
+    public List<Square> getValidMoves() {
+        List<Square> possibles = Bishop.getValidMoves(this.getSquare(), this.isWhite());
+        possibles.addAll(Rook.getValidMoves(this.getSquare(), this.isWhite()));
+        return possibles;
+    }
 }

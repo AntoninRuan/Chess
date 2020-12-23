@@ -1,16 +1,13 @@
 package fr.antoninruan.chess;
 
 import fr.antoninruan.chess.model.Square;
+import fr.antoninruan.chess.model.piece.King;
 import fr.antoninruan.chess.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -22,6 +19,8 @@ public class MainApp extends Application {
     private static AnchorPane rootLayout;
     private static RootLayoutController rootController;
     private static HashMap<Pair<Integer, Integer>, Square> squares = new HashMap<>();
+    private static King whiteKing;
+    private static King blackKing;
     private static boolean whiteTurn = true;
 
     public static void main(String... args) {
@@ -42,7 +41,6 @@ public class MainApp extends Application {
             rootLayout = loader.load();
 
             rootController = loader.getController();
-            rootController.setMainApp(this);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -63,6 +61,22 @@ public class MainApp extends Application {
     public static Square getSquare(int c, int r) {
         Pair pair = new Pair(c, r);
         return squares.get(pair);
+    }
+
+    public static King getWhiteKing() {
+        return whiteKing;
+    }
+
+    public static void setWhiteKing(King whiteKing) {
+        MainApp.whiteKing = whiteKing;
+    }
+
+    public static King getBlackKing() {
+        return blackKing;
+    }
+
+    public static void setBlackKing(King blackKing) {
+        MainApp.blackKing = blackKing;
     }
 
     public static boolean isWhiteTurn() {
