@@ -16,6 +16,10 @@ public class King extends Piece{
     public boolean isChecked() {
         Square from = this.getSquare();
 
+        return isChecked(from);
+    }
+
+    public boolean isChecked(Square from) {
         if(from.getColumn() + 2 < 8) {
 
             if (from.getRow() + 1 < 8) {
@@ -179,6 +183,8 @@ public class King extends Piece{
         Square from = this.getSquare();
         if (from.equals(dest))
             return false;
+        if(isChecked(dest))
+            return false;
 
         return getValidMoves().contains(dest);
     }
@@ -191,7 +197,7 @@ public class King extends Piece{
             for (int j = -1; j <= 1; j ++) {
                 if ((from.getColumn() + i >= 0 && from.getColumn() + i < 8) && (from.getRow() + j >= 0 && from.getRow() + j < 8)) {
                     Square checking = MainApp.getSquare(from.getColumn() + i, from.getRow() + j);
-                    if(!checking.equals(from)) {
+                    if(!checking.equals(from) && !isChecked(checking)) {
                         if(checking.isEmpty() || checking.getPiece().isWhite() != this.isWhite())
                             possibles.add(checking);
                         //TODO ajouter une vérification pour que le roi ne se mette pas en situation d'échecs
