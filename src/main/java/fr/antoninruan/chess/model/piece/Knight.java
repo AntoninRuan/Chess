@@ -1,6 +1,7 @@
-package fr.antoninruan.chess.model;
+package fr.antoninruan.chess.model.piece;
 
 import fr.antoninruan.chess.MainApp;
+import fr.antoninruan.chess.model.Square;
 import javafx.scene.image.Image;
 
 public class Knight extends Piece{

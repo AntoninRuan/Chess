@@ -1,6 +1,7 @@
-package fr.antoninruan.chess.model;
+package fr.antoninruan.chess.model.piece;
 
 import fr.antoninruan.chess.MainApp;
+import fr.antoninruan.chess.model.Square;
 import javafx.scene.image.Image;
 
 public class Pawn extends Piece{
@@ -18,7 +19,7 @@ public class Pawn extends Piece{
 
         if (dest.getColumn() == from.getColumn()) {
             return (dest.isEmpty() && dest.getRow() == from.getRow() + v) ||
-                    (from.getRow() + (v * 2) == dest.getRow() && dest.isEmpty() && from.getRow() == (isWhite() ? 1 : 7));
+                    (from.getRow() + (v * 2) == dest.getRow() && dest.isEmpty() && from.getRow() == (isWhite() ? 1 : 6));
         } else if (dest.getColumn() == from.getColumn() + 1 || dest.getColumn() == from.getColumn() - 1) {
             return !dest.isEmpty() && dest.getRow() == from.getRow() + v;
         } else

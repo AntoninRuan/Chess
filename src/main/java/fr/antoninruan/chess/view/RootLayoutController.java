@@ -1,8 +1,8 @@
 package fr.antoninruan.chess.view;
 
-import com.sun.tools.javac.Main;
 import fr.antoninruan.chess.MainApp;
 import fr.antoninruan.chess.model.*;
+import fr.antoninruan.chess.model.piece.*;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;

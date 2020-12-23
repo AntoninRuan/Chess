@@ -1,10 +1,8 @@
-package fr.antoninruan.chess.model;
+package fr.antoninruan.chess.model.piece;
 
 import fr.antoninruan.chess.MainApp;
+import fr.antoninruan.chess.model.Square;
 import javafx.scene.image.Image;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Queen extends Piece{
 
@@ -18,7 +16,7 @@ public class Queen extends Piece{
         if (from.equals(dest))
             return false;
 
-        return Bishop.isValidDestination(from, dest) || Rook.isValidDestination(from, dest);
+        return Bishop.isValidDestination(from, dest, isWhite()) || Rook.isValidDestination(from, dest, this.isWhite());
 
     }
 

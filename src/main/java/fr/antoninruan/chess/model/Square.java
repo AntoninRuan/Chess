@@ -1,5 +1,6 @@
 package fr.antoninruan.chess.model;
 
+import fr.antoninruan.chess.model.piece.Piece;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
